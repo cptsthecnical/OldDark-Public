@@ -1,0 +1,46 @@
+## 🔎 Sherlock
+# instalación
+sudo apt install git python3 python3-pip
+
+# repositorio
+cd /ce-500
+git clone https://github.com/sherlock-project/sherlock.git
+cd sherlock
+
+## creo un entorno virtual 
+    apt install python3-venv      # instala virtualenv
+    python3 -m venv venv          # crea un entorno virtual dentro del directorio donde está el proyecto
+    source venv/bin/activate      # Activa el entorno virtual    
+    pip install -e .              # Esto instalaría las dependencias especificadas en el proyecto si es compatible con pip
+
+# analizo datos de correos de la base de datos
+# 🕷️ con sherlock no solo puedes ver las paginas donde has sido registrado si no si tu correo a sido vulnerado en servicios de recopilación
+# 🔥 usar servicios de email temporales para registro de plataformas o accesos exteriores como la que ofrece duckduckgo o protonmail
+python3 -m sherlock_project <USUARIO_O_CORREO>
+
+# salgo del entorno virtual 
+> deactivate
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+cd aptelliot
+git clone https://github.com/Lucksi/Mr.Holmes
+cd Mr.Holmes
+sudo apt-get update
+sudo chmod +x install.sh
+./install.sh
+
+# instalación
+1 -> BEGIN
+2 -> AUTOINSTALL
+
+----------------------------------------------------
+# virtualizo el paquete 
+apt-get install python3-venv -y
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python MrHolmes.py
+# deactivate
+
+# escaneando movil
