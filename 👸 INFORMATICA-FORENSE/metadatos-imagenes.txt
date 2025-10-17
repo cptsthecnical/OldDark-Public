@@ -1,0 +1,6 @@
+# metadatos
+## 🖼️ exiftool
+# ver metadatos de una imágen
+apt install exiftool
+wget <url>
+exiftool <imagen_descargada>
