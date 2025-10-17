@@ -1,0 +1,27 @@
+### una vez activada la VPN y dentro de un wifi
+
+# escaneo toda la red, incluyendo MAC, host, ip y latencia y lo guardo en un archivo
+nmap -sn -R 10.1.10.1/24 >> escaner.txt
+# para esto tengo un script que registra las ip de manera sigilosa
+escaner-host-toda-la-red.sh
+------------------------------------------------------------------
+#!/bin/bash
+# este script escanea toda la red en busca de los equipos, imprimiendo su ip y su host
+# Pedir la red al usuario
+read -p "Introduce la red /24 (ej: 192.168.1): " network
+
+echo "Escaneando la red $network.0/24..."
+
+for i in {1..254}; do
+    ip="$network.$i"
+    host=$(dig -x $ip +short)
+    if [ -n "$host" ]; then
+        echo "$ip -> $host"
+    fi
+done
+
+echo "Escaneo completado."
+------------------------------------------------------------------
+
+# dentro de la misma red para conocer la mac y el dispositivo que es
+nmap -sn -R <ip-red>
