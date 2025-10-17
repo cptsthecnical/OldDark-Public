@@ -1,0 +1,12 @@
+## Conocer usuarios SMB
+# instalo
+sudo apt update
+sudo apt install -y perl smbclient nmap
+
+# Descargar enum4linux
+git clone https://github.com/CiscoCXSecurity/enum4linux.git
+cd enum4linux
+
+# auditoría de SMB en red
+perl enum4linux.pl 192.168.10.40
+perl enum4linux.pl -u usuario -p contraseña 10.1.10.30
