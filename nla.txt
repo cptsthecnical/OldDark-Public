@@ -11,3 +11,13 @@ sysdm.cpl
   [x] Permitir las conexiones remotas a este equipo
   [x] Permitir conexiones solo desde equipos que ejecuten Escritorio remoto con Autenticación a nivel de red (NLA) (Recomendado) 
       || "Allow connections only from computers running remote desktop with network level authentication (recommended)"
+
+
+
+
+
+
+
+
+
+https://www.sysadmit.com/2020/03/windows-cambiar-red-publica-privada.html
