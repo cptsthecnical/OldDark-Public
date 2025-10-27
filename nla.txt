@@ -21,3 +21,98 @@ sysdm.cpl
 
 
 https://www.sysadmit.com/2020/03/windows-cambiar-red-publica-privada.html
+
+
+
+
+
+
+
+
+
+
+
+
+Abrir Configuración del sistema:
+
+Win + R → escribe sysdm.cpl → Enter.
+
+Ir a la pestaña “Nombre de equipo”.
+
+Pulsa “Cambiar…”.
+
+Seleccionar “Dominio” e introduce el nombre del dominio AD (por ejemplo: empresa.local).
+
+Autenticarse:
+
+Introduce un usuario con permisos para unir equipos al dominio.
+
+Reiniciar el equipo.
+
+✅ Comprobación:
+
+En consola, ejecuta:
+
+whoami /fqdn
+
+
+
+
+
+
+
+
+
+
+
+============[ 2. Directorio activo ]===================================================
+
+[🔥 En el caso de portatil no hay que hacerlo.]
+# Una vez formateado: 
+	Este equipo (botón derecho) > Propiedades > Sistema > Información - Dominio o grupo de trabajo
+	(Descripción vacía) - Cambiar:
+		# active directory solo sirve para comprobar el registro centralizado de recursos en una red, el sistema de carpetas se almacenan en local pero el active directory sí que está asociado a ese equipo
+		# esto quiere decir que si ya existe un equipo al que tengo que sustituir tengo que eliminar el equipo con ese mismo nombre porque si no me va a dar un error de que ya existe un equipo asociado ("Error al validar el nombre de 'Isaac-PC'")
+		# una vez haya borrado del servidor el equipo asociado al active directory ya me dejará registrarme con ese nombre del AD en el equipo formateado
+		# Para borrar un equipo desde el servidor de DC: Usuarios y equipos de active directory > grafometal.local > Computers > ISAAC-PC (botón derecho - eliminar)
+		# lo que sí que afecta en el active directory en el caso de que se desvincule el pc (computer) del usuario de active directory es que en el caso de querer conectarse por remoto se va a intentar conectar al formateado por eso es bueno si va a pasar mucho tiempo volver a cambiarlo...
+		# 🔥 una vez eliminado el equipo del servidor de active directory para estar en dominio y poder entrar con remoto, tengo que agregar el equipo de dominio desde el equipo del usuario y no desde el servidor
+		Nombre de equipo: <NOMBRE-PC>										            		# ISAAC-PC (el nombre del equipo de AD siempre en mayúsculas)
+		Dominio: <DOMINIO>																		# grafometal.local
+			Aceptar >																			# Me registro con la cuenta de administrador para comprobar el acceso
+	
+	# Se unió correctamente al dominio <DOMINIO>
+	# reiniciar
+	# GRAFOMETAL\<NOMBRE_DE_USUARIO>
+
+============[ 3. Acceso remoto ]=======================================================
+
+[🔥 En el caso de portatil no hay que hacerlo.]	
+# En el caso de que necesite acceder por acceso remoto
+	Panel de control > Sistema de seguridad > Opciones de energía >
+	Elegir el comportamiento de los botones de inicio/apagado
+	Cambiar la configuración actualmente no disponible   					  					# clicar
+		[ ] Hibernar                                        				  					# quitar el check de Hibernar
+		
+	Panel de control > Sistema de seguridad > Opciones de energía >
+	Cambiar frecuencia con la que el equipo entra en estado de suspensión
+	Canbiar la configuración del plan
+		Poner al equipo en estado de suspensión
+			[x] Nunca
+
+
+# Agregar el usuario al remoto del equipo
+	# Me dirijo a inicio 
+	Tecla Super + R 																			# (botón derecho) > ejecutar
+	Lusrmgr.msc                     										            		# Ctrl + Shift + Enter para abrirlo como Administrador
+		Grupos > Usuarios de escritorio remoto
+			Agregar : <NOMBRE_DE_USUARIO>
+				Comprobar nombre
+	Aceptar y guardar
+
+# segunda opción de agregar el usuario al remoto del equipo
+#	Btoón derecho en inicio > Sistema > Sistema > Escritorio Remoto > Usuarios de escritorio remoto > 
+#	Agregar > Opciones avanzadas > 
+#		Desde esta ubicación: <DOMINIO>
+#		Buscar ahora > "seleccionar usuario"
+	
