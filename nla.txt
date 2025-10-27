@@ -1,0 +1,13 @@
+# Habilitar la autenticación de nivel de red (NLA) en el servidor RDP remoto. 
+# Esto generalmente se hace en la pestaña 'Remoto' de la configuración 'Sistema' en Windows.
+************************************************************************************************************************************************************************
+# Esto significa que el servidor no carga la interfaz de escritorio completa hasta que la autenticación sea exitosa, reduciendo la exposición a ataques.
+# Sin NLA habilitado, un atacante puede intentar ataques de fuerza bruta contra RDP sin restricciones entre otras muchas opciones.
+
+# configuración simple
+Windows + R
+sysdm.cpl
+> Acceso remoto (o simplemente Remoto)
+  [x] Permitir las conexiones remotas a este equipo
+  [x] Permitir conexiones solo desde equipos que ejecuten Escritorio remoto con Autenticación a nivel de red (NLA) (Recomendado) 
+      || "Allow connections only from computers running remote desktop with network level authentication (recommended)"
