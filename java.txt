@@ -23,9 +23,9 @@ Java
 
 # enlaces de descarga
 JavaJDK - https://www.oracle.com/java/technologies/downloads/?er=221886#java17
-JavaJRE - 
+JavaJRE - (Descargar Java para Escritorio) https://www.java.com/es/
+Todas las versiones (JavaJDK y JavaJRE) - https://www.oracle.com/java/technologies/downloads/archive/
 Oracle Database JDBC - https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
-
 
 
 ## versiones antiguas de usuarios
