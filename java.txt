@@ -42,5 +42,12 @@ M - JDK (1.8.0_321),
 
 
 
++ Security Update for Microsoft .NET Core ::          Corrige vulnerabilidades (RCE, información, DoS) en .NET Core.
++ Security Update for Microsoft .NET 7 Core ::        Actualización específica para la versión 7.0.x, corrige vulnerabilidades nuevas (incluyendo en HTTP/2 Kestrel)
++ Security Updates for Microsoft ASP.NET Core ::      Se centra en vulnerabilidades del lado web (por ejemplo DoS por HTTP/2) en ASP.NET Core.
+
+
+
+
 
 
