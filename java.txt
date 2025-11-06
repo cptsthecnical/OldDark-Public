@@ -22,8 +22,18 @@ java -version
 Java
 
 # enlaces de descarga
-- https://www.oracle.com/java/technologies/downloads/?er=221886#java17
+JavaJDK - https://www.oracle.com/java/technologies/downloads/?er=221886#java17
+JavaJRE - 
+Oracle Database JDBC - https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
 
-- C:\Windows\SysWOW64\odbcad32.exe
+
+
+## versiones antiguas de usuarios
+M - JDK (1.8.0_321), 
+
+
+
+
+
 
 
