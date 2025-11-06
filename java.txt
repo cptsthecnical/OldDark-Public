@@ -27,9 +27,10 @@ JavaJDK - https://www.oracle.com/java/technologies/downloads/?er=221886#java17
 JavaJRE - (Descargar Java para Escritorio) https://www.java.com/es/
 Todas las versiones (JavaJDK y JavaJRE) - https://www.oracle.com/java/technologies/downloads/archive/
 Oracle Database JDBC - https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
-# .net
+# .net · https://dotnet.microsoft.com/es-es/download/dotnet
 .NET 7 - https://dotnet.microsoft.com/es-es/download/dotnet/7.0
 .NET 6 - https://dotnet.microsoft.com/es-es/download/dotnet/6.0
+.NET core ahora se llama también .NET 
 
 ## versiones antiguas de usuarios
 M - JDK (1.8.0_321), 
