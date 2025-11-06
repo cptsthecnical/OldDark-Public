@@ -15,9 +15,13 @@
 | Oracle MySQL Connectors (October 2024 CPU)                 | MySQL Connectors (JDBC/ODBC)  | Conectores para que apps accedan a bases de datos MySQL     |
 +------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
 
+# comporbar version java
+java -version
 
-java-version
+# creo que todos estos fallos se deven al programa de 
+Java
 
+# enlaces de descarga
 - https://www.oracle.com/java/technologies/downloads/?er=221886#java17
 
 - C:\Windows\SysWOW64\odbcad32.exe
