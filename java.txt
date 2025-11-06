@@ -28,7 +28,7 @@ JavaJRE - (Descargar Java para Escritorio) https://www.java.com/es/
 Todas las versiones (JavaJDK y JavaJRE) - https://www.oracle.com/java/technologies/downloads/archive/
 Oracle Database JDBC - https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
 # .net · https://dotnet.microsoft.com/es-es/download/dotnet
-# .NET core ahora se llama también .NET, con instalar .NET7 ya viene en el paquete todo .NET7 core, ASP.NET Core,  .NET 7 Core
+# .NET core ahora se llama también .NET, con instalar .NET 7 ya viene en el paquete todo .NET 7 core, ASP.NET Core,  .NET 7 Core
 # 👉 ASP.NET Core Runtime 8.0.21                                        # en mi caso solo necesito el siguiente isntalador, porque es para usuario cliente
 .NET 8 - https://dotnet.microsoft.com/es-es/download/dotnet/8.0
 .NET 7 - https://dotnet.microsoft.com/es-es/download/dotnet/7.0
