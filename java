@@ -1,5 +1,25 @@
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+| Vulnerabilidad                                             | Paquete                       | Función en un PC final                                      |
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+| Security Update for Microsoft .NET Core (Aug 2023)         | Microsoft .NET Core           | Framework para ejecutar aplicaciones .NET en Windows        |
+| Security Update for Microsoft .NET 7 Core (Oct 2023)       | Microsoft .NET 7 Core         | Versión más reciente del framework para apps modernas       |
+| Security Updates for Microsoft ASP.NET Core (Oct 2023)     | ASP.NET Core                  | Framework web para aplicaciones locales o en intranet       |
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+| Apache Commons Text 1.5.x < 1.10.0 Remote Code Execution   | Apache Commons Text           | Biblioteca Java usada para manipular texto en apps locales  |
+| (CVE-2022-42889)                                           |                               | o empresariales; riesgo de ejecución remota                 |
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+| Oracle Conectors. Actualización Oct 2024                   | Oracle Connectors             | Drivers para conectar aplicaciones a bases de datos         |
+|                                                            | (ODBC, JDBC, Python, etc.)    | Oracle o MySQL; usado en contabilidad, contabilidad Sage    |
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+| Oracle Java SE Multiple Vulnerabilities (April 2025 CPU)   | Oracle Java SE                | Entorno de ejecución Java; necesario para apps empresariales|
+| Oracle MySQL Connectors (October 2024 CPU)                 | MySQL Connectors (JDBC/ODBC)  | Conectores para que apps accedan a bases de datos MySQL     |
++------------------------------------------------------------+-------------------------------+-------------------------------------------------------------+
+
+
 java-version
 
 - https://www.oracle.com/java/technologies/downloads/?er=221886#java17
 
 - C:\Windows\SysWOW64\odbcad32.exe
+
+
