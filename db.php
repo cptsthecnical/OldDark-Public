@@ -200,3 +200,114 @@ class db extends kernel {
     # Uso SIN WHERE (trae todos): $this->destruction("tabla");
     # Uso CON WHERE: $this->destruction("tabla", ['id' => $user_id]);
 }
+
+
+
+
+
+
+
+
+
+
+
+ejemplos
+---------------------------------------------------------------------------------------------------
+    sin where
+// SELECT id, nombre, email FROM usuarios
+$usuarios = $db->select("id, nombre, email", "usuarios");
+
+echo "Total de usuarios: " . count($usuarios) . "\n";
+// Salida: Total de usuarios: 25
+
+    con where 
+$user_id = $_GET['id'] ?? 10; // Dato potencialmente peligroso
+$estado_activo = 1;
+
+// SELECT * FROM productos WHERE id = :w_id AND activo = :w_activo
+$productos = $db->select("*", "productos", [
+    'id' => $user_id,             // El valor 10 se escapa automáticamente
+    'activo' => $estado_activo    // El valor 1 se escapa automáticamente
+]);
+
+if (!empty($productos)) {
+    echo "Producto encontrado: " . $productos[0]['nombre'];
+}
+---------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+$usuario_a_modificar = 42;
+$nombre_nuevo = "Raúl O'Connell"; // El dato de usuario no necesita comillas ni escape
+$status_nuevo = 0;
+
+$filas_afectadas = $db->update(
+    "usuarios", 
+    [
+        "nombre" => $nombre_nuevo, // Se convierte a SET nombre = :set_nombre
+        "activo" => $status_nuevo
+    ], 
+    [
+        'id' => $usuario_a_modificar // Se convierte a WHERE id = :w_id
+    ]
+);
+
+echo "Filas actualizadas: $filas_afectadas\n";
+---------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------
+    con where
+$id_a_eliminar = 105;
+
+// DELETE FROM comentarios WHERE id = :w_id
+$filas_afectadas = $db->destruction("comentarios", [
+    'id' => $id_a_eliminar
+]);
+
+echo "Comentarios eliminados: $filas_afectadas\n";
+
+    sin where
+// DELETE FROM logs_temporales
+$filas_afectadas = $db->destruction("logs_temporales"); 
+
+echo "Logs temporales borrados: $filas_afectadas\n";
+---------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------
+    ejemplo insert pasando todo el post del formulario pero cambiando valores o agregando pro defecto
+// 1. Simulación de un $_POST con muchos inputs (y un dato malicioso)
+$datos_del_formulario = [
+    'nombre_producto' => 'Monitor 4K',
+    'descripcion' => "Una descripción con 'comillas' internas.", // Caracter especial
+    'categoria_id' => 3,
+    'precio' => 450.00,
+    'stock_inicial' => 20,
+    'tag_promocional' => 'OFERTA',
+    // ... 15 inputs más ...
+    'activo' => 1, // Este valor será sobrescrito
+    'fecha_creacion' => null // Este valor será sobrescrito
+];
+
+// 2. Definición de los valores que quieres controlar/añadir
+$valores_controlados = [
+    // Sobrescribir: aunque venga en POST, forzamos este valor
+    'activo' => 0, 
+    // Añadir: campo que no venía en POST
+    'fecha_creacion' => date('Y-m-d H:i:s'),
+    // Añadir: campo que no venía en POST (ej: ID del usuario logueado)
+    'usuario_alta_id' => 14, 
+];
+
+// 3. 💥 La magia: Combinación de Arrays
+// array_merge pone todos los inputs y LUEGO sobrescribe las claves con $valores_controlados
+$datos_finales_a_insertar = array_merge($datos_del_formulario, $valores_controlados);
+
+// 4. Llamada al método INSERT (Sencilla y Segura)
+// La clase hace el 'foreach' interno para generar el SQL y escapar todos los 18+ valores.
+$id_insertado = $db->insert("productos", $datos_finales_a_insertar);
+
+echo "Producto insertado con ID: $id_insertado\n";
+---------------------------------------------------------------------------------------------------
+
+
+    
