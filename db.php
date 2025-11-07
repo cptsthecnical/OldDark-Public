@@ -28,6 +28,7 @@ class db extends kernel {
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             PDO::ATTR_EMULATE_PREPARES   => false, // Esencial para la seguridad
         ];
 
@@ -53,9 +54,17 @@ class db extends kernel {
 
             $sql_upper = strtoupper(trim(substr($sql, 0, 6)));
 
+            # Para devolver los valores en formato array 
             if ($sql_upper === 'SELECT') {
                 return $stmt->fetchAll(); // Devuelve los resultados
             }
+
+            /*
+            # Para devolver los valores en formato objeto
+            if ($sql_upper === 'SELECT') {
+                return $stmt->fetchAll(PDO::FETCH_OBJ); 
+            }
+            */
             
             if ($sql_upper === 'INSERT') {
                 return (int)$this->conn->lastInsertId(); // Devuelve el ID insertado
