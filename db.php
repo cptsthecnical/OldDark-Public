@@ -1,4 +1,5 @@
 <?php
+// db.php (o el nombre que uses para tu clase)
 
 require_once('./iSNF/helpers/tokenEncryption.php');
 require_once('./iSNF/kernel.php');
@@ -19,14 +20,15 @@ class db extends kernel {
         $key = getenv('KEY');
         $iv = getenv('IV');
 
-        // Desencripta la contraseña que has tenido que dejar encriptada en el archivo .env
+        // Desencripta la contraseña (manteniendo tu lógica original)
         $decryptPassword = tokenEncryption::decrypt($password, $key, $iv);
 
+        // Configuración PDO
         $dsn = "mysql:host=$host;dbname=$database;charset=utf8mb4";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_EMULATE_PREPARES   => false, // Esencial para la seguridad
         ];
 
         try {
@@ -36,131 +38,165 @@ class db extends kernel {
         }
     }
 
-    // --- Métodos de ejecución internos ---
+    // --- Método de Ejecución Central (Seguridad y Escape Automático) ---
 
     /**
-     * Ejecuta una consulta SELECT y devuelve los resultados.
-     * @param string $sql La sentencia SQL.
+     * Ejecuta cualquier consulta SQL de forma segura usando sentencias preparadas.
+     * Los datos en $params son escapados automáticamente por PDO.
+     * @param string $sql La sentencia SQL con marcadores (:nombre).
      * @param array $params Los parámetros asociativos (ej: [':id' => 1]).
-     * @return array
      */
-    private function executeQuery(string $sql, array $params = []): array {
+    private function executeStatement($sql, $params = []) {
         try {
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute($params);
-            return $stmt->fetchAll();
+            $stmt->execute($params); // PDO escapa y enlaza los datos aquí.
+
+            $sql_upper = strtoupper(trim(substr($sql, 0, 6)));
+
+            if ($sql_upper === 'SELECT') {
+                return $stmt->fetchAll(); // Devuelve los resultados
+            }
+            
+            if ($sql_upper === 'INSERT') {
+                return (int)$this->conn->lastInsertId(); // Devuelve el ID insertado
+            }
+
+            return (int)$stmt->rowCount(); // Devuelve las filas afectadas
+
         } catch (\PDOException $e) {
             die("Error al ejecutar la consulta: " . $e->getMessage() . " en la consulta: " . $sql);
         }
     }
 
-    /**
-     * Ejecuta una consulta que no devuelve resultados (INSERT, UPDATE, DELETE).
-     * @param string $sql La sentencia SQL.
-     * @param array $params Los parámetros asociativos (ej: [':nombre' => 'Elliot']).
-     * @return int El número de filas afectadas o el ID de la última inserción.
-     */
-    private function executeNoQuery(string $sql, array $params = []): int {
-        try {
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute($params);
-
-            // Si es un INSERT, devuelve el ID de la última inserción
-            if (strtoupper(substr(trim($sql), 0, 6)) === 'INSERT') {
-                return (int)$this->conn->lastInsertId();
-            }
-
-            // En otro caso (UPDATE/DELETE), devuelve el número de filas afectadas
-            return (int)$stmt->rowCount();
-
-        } catch (\PDOException $e) {
-            die("Error al ejecutar la consulta (NoQuery): " . $e->getMessage() . " en la consulta: " . $sql);
-        }
-    }
-
-    // --- Métodos públicos de la base de datos ---
+    // --- Métodos ORM (Sencillos de Usar) ---
 
     /**
-     * Realiza una consulta SELECT.
-     * @param string $columns Columnas a seleccionar (ej: "col1, col2").
+     * 🔍 Obtiene registros de una tabla.
+     * @param string $columns Columnas a seleccionar (ej: "id, nombre").
      * @param string $table Nombre de la tabla.
-     * @param string $where_options Opciones WHERE/ORDER BY/LIMIT (ej: "WHERE col = :val ORDER BY id DESC").
-     * @param array $params Parámetros asociativos para los marcadores de posición (ej: [':val' => 1]).
+     * @param array $where_params Condición WHERE como array [columna => valor]. Por defecto: trae todo.
      * @return array
      */
-    public function select(string $columns, string $table, string $where_options = '', array $params = []): array {
-        $query = "SELECT $columns FROM $table $where_options";
-        return $this->executeQuery($query, $params);
+    public function select($columns, $table, $where_params = []) {
+        $sql = "SELECT $columns FROM $table";
+        $params = [];
+        $where_parts = [];
+        
+        // 🐍 Bucle (foreach) para construir automáticamente la cláusula WHERE
+        foreach ($where_params as $column => $value) {
+            $marker = ":w_{$column}"; // Marcador de posición con nombre único
+            $where_parts[] = "$column = $marker";
+            $params[$marker] = $value; // El valor se añade aquí, PDO lo escapa.
+        }
+
+        if (!empty($where_parts)) {
+            $sql .= " WHERE " . implode(' AND ', $where_parts);
+        }
+        
+        // Se pueden añadir aquí otras opciones como ORDER BY o LIMIT si es necesario.
+
+        return $this->executeStatement($sql, $params);
     }
-    # Uso: $rows = $this->select("col1", "tabla", "WHERE id = :id AND nombre = :name", [':id' => 1, ':name' => 'Elliot']);
+    # Uso SIN WHERE (trae todos): $rows = $this->select("col1, col2", "tabla");
+    # Uso CON WHERE: $rows = $this->select("col1", "tabla", ['id' => $user_id, 'activo' => 1]);
 
 
     /**
-     * Realiza una consulta INSERT.
+     * ➕ Inserta un registro en una tabla.
      * @param string $table Nombre de la tabla.
      * @param array $data Array asociativo de [columna => valor].
-     * @return int El ID de la última fila insertada.
+     * @return int ID de la última fila insertada.
      */
-    public function insert(string $table, array $data): int {
+    public function insert($table, $data) {
         $columns = implode(', ', array_keys($data));
-        // Crea los marcadores de posición con nombre :columna1, :columna2, etc.
-        $placeholders = ':' . implode(', :', array_keys($data));
-        
-        // Prepara los parámetros para la ejecución con el formato [':columna' => valor]
+        $placeholders = [];
         $params = [];
-        foreach ($data as $key => $value) {
-            $params[":$key"] = $value;
+        
+        // 🐍 Bucle (foreach) para generar automáticamente los marcadores y los parámetros.
+        foreach ($data as $column => $value) {
+            $marker = ":{$column}"; // Marcador con el nombre de la columna
+            $placeholders[] = $marker;
+            $params[$marker] = $value; // El valor se añade aquí, PDO lo escapa.
         }
-
-        $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        return $this->executeNoQuery($query, $params);
+        
+        $placeholders_string = implode(', ', $placeholders);
+        $query = "INSERT INTO $table ($columns) VALUES ($placeholders_string)";
+        
+        return $this->executeStatement($query, $params);
     }
-    # Uso: $id = $this->insert("tabla", ["columna1" => 'valor1', "columna2" => 'valor2']);
+    # Uso: $id = $this->insert("tabla", ["nombre" => $name_input, "email" => $email_input]);
 
 
     /**
-     * Realiza una consulta UPDATE.
+     * 🔄 Actualiza registros en una tabla.
      * @param string $table Nombre de la tabla.
-     * @param array $data Array asociativo de [columna => valor] a actualizar.
-     * @param string $where La condición WHERE (ej: "id = :id_val AND nombre = :name_val").
-     * @param array $where_params Parámetros asociativos para la condición WHERE.
-     * @return int El número de filas afectadas.
+     * @param array $data Array [columna => valor] a actualizar.
+     * @param array $where_params Condición WHERE como array [columna => valor].
+     * @return int Número de filas afectadas.
      */
-    public function update(string $table, array $data, string $where, array $where_params = []): int {
+    public function update($table, $data, $where_params) {
         $set_parts = [];
-        $data_params = [];
-        
-        // Construye la parte SET y los parámetros de los datos
+        $params = [];
+        $where_parts = [];
+
+        // 🐍 1. Bucle (foreach) para construir la cláusula SET
         foreach ($data as $column => $value) {
-            $placeholder = ":set_$column";
-            $set_parts[] = "$column = $placeholder";
-            $data_params[$placeholder] = $value;
+            $marker = ":set_{$column}"; // Marcador único para el SET
+            $set_parts[] = "$column = $marker";
+            $params[$marker] = $value;
         }
         $set_string = implode(', ', $set_parts);
+        
+        // 🐍 2. Bucle (foreach) para construir la cláusula WHERE
+        foreach ($where_params as $column => $value) {
+            $marker = ":w_{$column}"; // Marcador único para el WHERE
+            $where_parts[] = "$column = $marker";
+            $params[$marker] = $value;
+        }
+        $where_string = implode(' AND ', $where_parts);
 
-        // Combina los parámetros de SET y WHERE
-        $params = array_merge($data_params, $where_params);
+        if (empty($where_string)) {
+             die("Error de seguridad: Se requiere una condición WHERE para la actualización.");
+        }
 
-        $query = "UPDATE $table SET $set_string WHERE $where";
-        return $this->executeNoQuery($query, $params);
+        $query = "UPDATE $table SET $set_string WHERE $where_string";
+        return $this->executeStatement($query, $params);
     }
-    # Uso: $rows_affected = $this->update("tabla", 
-    #   ["columna" => 'nuevo_valor', "columna2" => 'otro_valor'], 
-    #   "id = :cond_id", 
-    #   [':cond_id' => 5]
-    # );
+    # Uso: $this->update("tabla", ["nombre" => $new_name], ['id' => $user_id]);
 
 
     /**
-     * Realiza una consulta DELETE.
+     * ❌ Elimina registros de una tabla.
      * @param string $table Nombre de la tabla.
-     * @param string $where La condición WHERE (ej: "id = :id_val").
-     * @param array $params Parámetros asociativos para la sentencia preparada.
-     * @return int El número de filas eliminadas.
+     * @param array $where_params Condición WHERE como array [columna => valor]. Por defecto: trae todo.
+     * @return int Número de filas eliminadas.
      */
-    public function destruction(string $table, string $where = '1', array $params = []): int {
-        $query = "DELETE FROM $table WHERE $where";
-        return $this->executeNoQuery($query, $params);
+    public function destruction($table, $where_params = []) {
+        $params = [];
+        $where_parts = [];
+
+        // 🐍 Bucle (foreach) para construir la cláusula WHERE
+        foreach ($where_params as $column => $value) {
+            $marker = ":w_{$column}";
+            $where_parts[] = "$column = $marker";
+            $params[$marker] = $value;
+        }
+        $where_string = implode(' AND ', $where_parts);
+        
+        $query = "DELETE FROM $table";
+        if (!empty($where_string)) {
+            $query .= " WHERE $where_string";
+        } else {
+             // ⚠️ Advertencia de seguridad antes de borrar toda la tabla
+             if (count($where_params) === 0) {
+                 // return 0; // Podrías devolver 0 para evitar el borrado masivo
+                 // o forzar un error:
+                 // die("Error de seguridad: La eliminación total de la tabla no está permitida sin WHERE.");
+             }
+        }
+        
+        return $this->executeStatement($query, $params);
     }
-    # Uso: $rows_affected = $this->destruction("tabla", "columna = :val", [':val' => 'valor']); 
+    # Uso SIN WHERE (trae todos): $this->destruction("tabla");
+    # Uso CON WHERE: $this->destruction("tabla", ['id' => $user_id]);
 }
