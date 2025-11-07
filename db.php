@@ -189,7 +189,7 @@ class db extends kernel {
         } else {
             // Aplicar restricción de seguridad: No permitir DELETE FROM tabla sin WHERE.
             if (count($where_params) === 0) {
-                 die("⚠️ Error de seguridad: La eliminación total de la tabla no está permitida sin WHERE.");
+                 die("Error de seguridad: La eliminación total de la tabla no está permitida sin WHERE.");
             }
         }
         
