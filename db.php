@@ -215,7 +215,7 @@ ejemplos
 ---------------------------------------------------------------------------------------------------
     sin where
 // SELECT id, nombre, email FROM usuarios
-$usuarios = $db->select("id, nombre, email", "usuarios");
+$usuarios = $db->select("usuarios", "id, nombre, email");
 
 echo "Total de usuarios: " . count($usuarios) . "\n";
 // Salida: Total de usuarios: 25
@@ -225,7 +225,7 @@ $user_id = $_GET['id'] ?? 10; // Dato potencialmente peligroso
 $estado_activo = 1;
 
 // SELECT * FROM productos WHERE id = :w_id AND activo = :w_activo
-$productos = $db->select("*", "productos", [
+$productos = $db->select("productos", "*", [
     'id' => $user_id,             // El valor 10 se escapa automáticamente
     'activo' => $estado_activo    // El valor 1 se escapa automáticamente
 ]);
