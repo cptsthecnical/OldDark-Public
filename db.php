@@ -187,12 +187,10 @@ class db extends kernel {
         if (!empty($where_string)) {
             $query .= " WHERE $where_string";
         } else {
-             // ⚠️ Advertencia de seguridad antes de borrar toda la tabla
-             if (count($where_params) === 0) {
-                 // return 0; // Podrías devolver 0 para evitar el borrado masivo
-                 // o forzar un error:
-                 // die("Error de seguridad: La eliminación total de la tabla no está permitida sin WHERE.");
-             }
+            // Aplicar restricción de seguridad: No permitir DELETE FROM tabla sin WHERE.
+            if (count($where_params) === 0) {
+                 die("⚠️ Error de seguridad: La eliminación total de la tabla no está permitida sin WHERE.");
+            }
         }
         
         return $this->executeStatement($query, $params);
