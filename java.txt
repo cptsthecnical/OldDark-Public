@@ -38,13 +38,36 @@ Oracle Database JDBC - https://www.oracle.com/database/technologies/appdev/jdbc-
 ## versiones antiguas de usuarios
 M - JDK (1.8.0_321), 
 
-
-
-
-
 + Security Update for Microsoft .NET Core ::          Corrige vulnerabilidades (RCE, información, DoS) en .NET Core.
 + Security Update for Microsoft .NET 7 Core ::        Actualización específica para la versión 7.0.x, corrige vulnerabilidades nuevas (incluyendo en HTTP/2 Kestrel)
 + Security Updates for Microsoft ASP.NET Core ::      Se centra en vulnerabilidades del lado web (por ejemplo DoS por HTTP/2) en ASP.NET Core.
+
+
+=====================================================================================================================================================================
+[Log4j]::
+
+# powershell · Detección rápida (¿usa Log4j?) 
+Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
+  if ((& jar tf $_.FullName) -match "org/apache/logging/log4j") { $_.FullName }
+}
+  # otra forma para detectar Log4j
+  Get-ChildItem -Recurse -Include log4j*.jar -Path C:\ | Select-Object FullName
+# ignorar la carpeta de gradle. Gradle es un sistema de construcción (build system) para proyectos de software y se utiliza para compilar y gestionar Java
+# cualquier otra carpeta que reconozca es las que hay que modificar
+
+      Cómo hacerlo con 7-Zip (el método más simple de todos)
+      ******************************************************
+      1 - Buscar el archivo log4j-core-*.jar
+      2 - Clic derecho → Abrir con 7-Zip
+      3 - Dentro del jar: ir a
+          org/apache/logging/log4j/core/lookup/
+      4 - Borrar el archivo JndiLookup.class
+      5 - Cerrar 7-Zip → ya está parcheado  
+      6 - Reiniciar programa
+
+
+
+
 
 
 
