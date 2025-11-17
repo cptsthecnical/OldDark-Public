@@ -67,7 +67,7 @@ Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
 
 
 
-
+Get-ChildItem -Path C:\, D:\ -Include *log4j*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
 
 
 
