@@ -1,7 +1,7 @@
-lm corr
-my resp
-mm resp
-jy resp
-vm corr
-sm pass resp
+lm corr ingl - cpts
+my resp ingl - cpts
+mm pier ingl - cpts
+jy resp ingl - cpts
+vm corr      - cpts
+smy pass resp
 dy pass resp
