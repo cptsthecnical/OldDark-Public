@@ -20,7 +20,6 @@ Finder > Ir > Conectarse a un servidro > <PROTOCOLO>://<IP_SERVIDOR> (smb://10.5
 Finder > Ajustes > General > [x] Servidores Conectados
 
 
-
 =======[🔴 Dar acceso a una aplicación a todo el disco]======================================================
 # para darle acceso a todo el disco a una aplicación:
 Finder > Ajustes de sistema > Privacidad y seguridad > Acceso a todo el disco > ON 
@@ -29,7 +28,6 @@ Password Admin: ************
 # para dar/quitar acceso a las carpetas correspondientes de las aplicaciones:
 Finder > Ajustes de sistema > Privacidad y seguridad > Archivos y carpetas > OFF
 Password Admin: ************
-
 
 
 =======[🔴 Como unir macOS a un Directorio Activo]===========================================================
@@ -49,7 +47,6 @@ Mostrar opciones > Administración > Permitir administración a:
     Nombre y usuario: <USUARIO_DE_DOMINIO>
     Contraseña: <CONTRASEÑA_DE_DOMINIO>
     Aceptar
-
 
 
 =======[🔴 Eliminar aplicación]==============================================================================
