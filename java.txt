@@ -46,14 +46,24 @@ M - JDK (1.8.0_321),
 =====================================================================================================================================================================
 [Log4j]::
 
-# powershell · Detección rápida (¿usa Log4j?) 
-Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
-  if ((& jar tf $_.FullName) -match "org/apache/logging/log4j") { $_.FullName }
-}
-  # otra forma para detectar Log4j
-  Get-ChildItem -Recurse -Include log4j*.jar -Path C:\ | Select-Object FullName
-# ignorar la carpeta de gradle. Gradle es un sistema de construcción (build system) para proyectos de software y se utiliza para compilar y gestionar Java
-# cualquier otra carpeta que reconozca es las que hay que modificar
+# apache-commons-text solo M
+Get-ChildItem -Path C:\, D:\ -Include *commons-text*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
+
+# log4j
+Get-ChildItem -Path C:\, D:\ -Include *log4j*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
+
+
+
+
+
+      # powershell · Detección rápida (¿usa Log4j?) 
+      Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
+        if ((& jar tf $_.FullName) -match "org/apache/logging/log4j") { $_.FullName }
+      }
+        # otra forma para detectar Log4j
+        Get-ChildItem -Recurse -Include log4j*.jar -Path C:\ | Select-Object FullName
+      # ignorar la carpeta de gradle. Gradle es un sistema de construcción (build system) para proyectos de software y se utiliza para compilar y gestionar Java
+      # cualquier otra carpeta que reconozca es las que hay que modificar
 
       Cómo hacerlo con 7-Zip (el método más simple de todos)
       ******************************************************
@@ -64,14 +74,6 @@ Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
       4 - Borrar el archivo JndiLookup.class
       5 - Cerrar 7-Zip → ya está parcheado  
       6 - Reiniciar programa
-
-
-# apache-commons-text solo M
-Get-ChildItem -Path C:\, D:\ -Include *commons-text*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
-
-# log4j
-Get-ChildItem -Path C:\, D:\ -Include *log4j*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
-
 
 
 
