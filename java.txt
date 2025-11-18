@@ -66,7 +66,10 @@ Get-ChildItem -Recurse -Include *.jar,*.war,*.ear | ForEach-Object {
       6 - Reiniciar programa
 
 
+# apache-commons-text
+Get-ChildItem -Path C:\, D:\ -Include *commons-text*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
 
+# log4j
 Get-ChildItem -Path C:\, D:\ -Include *log4j*.jar -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, LastWriteTime
 
 
