@@ -52,3 +52,8 @@ Mostrar opciones > Administración > Permitir administración a:
 =======[🔴 Eliminar aplicación]==============================================================================
 # eliminar aplicación
 finder - aplicaciones - (arrastro la aplicación que quiera eliminar a la papelera)
+
+
+=======[🔴 Firewall permitir siempre]==============================================================================
+Preferencias del Sistema → Seguridad y Privacidad → Firewall → Opciones de firewall
+
