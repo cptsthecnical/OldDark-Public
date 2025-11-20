@@ -55,5 +55,18 @@ finder - aplicaciones - (arrastro la aplicación que quiera eliminar a la papele
 
 
 =======[🔴 Firewall permitir siempre]==============================================================================
+# Para ver las opciones del firewall
 Preferencias del Sistema → Seguridad y Privacidad → Firewall → Opciones de firewall
 
+  ## Tengo el problema de que un programa cada vez que lo abro me pide permisos para el firewall,
+  ## ejecuta binarios sin firmar o que cambian su hash, y por eso el firewall de macOS te pide permiso cada vez sin recordarlo
+  
+  # Tengo que autorizar la carpeta completa donde se ejecutan los binarios::
+  **************************************************************************
+  # Normalmente los helpers de los programas se ejecutan desde aquí, compruebo su disponibilidad 
+  cd /Library/<nombre-del-programa>
+  cd /Library/Application Support/<nombre-del-programa>
+  
+  # No puedo añadir carpetas al firewall directamente, pero sí puedes forzar la autorización de cada ejecutable:
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "/Library/<nombre-del-programa>/<binario>"
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "/Library/<nombre-del-programa>/<binario>"
