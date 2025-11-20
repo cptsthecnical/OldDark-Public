@@ -79,3 +79,32 @@ ps aux | grep -i kodak
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "/Applications/Kodak/Prinergy/Workshop.app/Contents/MacOS/Workshop"
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "/Applications/Kodak/Prinergy/Workshop.app/Contents/MacOS/Workshop"
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --restart
+
+
+
+Ve a Preferencias del Sistema → Seguridad y privacidad → Firewall → Opciones de firewall
+Marca “Permitir automáticamente que el software firmado reciba conexiones entrantes”.
+
+
+
+
+
+sudo codesign --force --deep --sign - /path/to/application.app
+Nunca he tenido que crear un certificado utilizando este método.
+
+Si eso no funciona, prueba sin --deepy sin la barra diagonal final:
+
+sudo codesign --force --sign - /path/to/application.app
+Nota, para que quede más claro: Después de aplicar la firma, inicie la aplicación, acepte las conexiones entrantes una última vez, luego ciérrela y vuelva a iniciarla para verificar que la solicitud haya desaparecido.
+
+sudo codesign --force --sign - "/Applications/Kodak/Prinergy/Workshop.app"
+
+
+
+
+
+
+
+Abrir Preferencias del Sistema → Seguridad y privacidad → Firewall → Opciones
+Marcar “Permitir automáticamente que el software firmado reciba conexiones entrantes”.
+No hay otra forma oficial de hacer que macOS recuerde el permiso de Workshop mientras sea un binario antiguo sin firma reconocida.
