@@ -70,3 +70,12 @@ Preferencias del Sistema → Seguridad y Privacidad → Firewall → Opciones de
   # No puedo añadir carpetas al firewall directamente, pero sí puedes forzar la autorización de cada ejecutable:
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "/Library/<nombre-del-programa>/<binario>"
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "/Library/<nombre-del-programa>/<binario>"
+
+
+# buscar
+ps aux | grep -i kodak
+
+# agrego las reglas con la ruta 
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "/Applications/Kodak/Prinergy/Workshop.app/Contents/MacOS/Workshop"
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "/Applications/Kodak/Prinergy/Workshop.app/Contents/MacOS/Workshop"
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --restart
