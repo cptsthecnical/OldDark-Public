@@ -1,0 +1,10 @@
+********************************************
+[GENERADOR DE ENERGÍA]:
+********************************************
+(Si el botón rojo parpadea)
+1 - Abrir: girar la llave, sacar la llave, sacar el anclaje hacia afuera y empujar
+2 - Parar: pulsar botón rojo
+3 - Encender - pulsar botón verde de encendido 
+4 - esperar hasta que arranque (a veces tiene que hacer varios intentos)
+5 - AUTOMÁTICO: pulsar botón de automático para que se apague (si no no se apaga).
+				de esta forma se encinede cuando lo necesite. 
