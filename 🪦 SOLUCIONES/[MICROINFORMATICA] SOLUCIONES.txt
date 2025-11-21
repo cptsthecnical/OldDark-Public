@@ -1,7 +1,107 @@
+================================================
 # red publica, privada
 https://www.sysadmit.com/2020/03/windows-cambiar-red-publica-privada.html
 
+
+
+================================================
 # Outlook se cuelga al imprimir
 https://www.tecnozero.com/mantenimiento-informatico/outlprnt-outlook-se-cuelga-al-imprimir/
 
+
+
+================================================
 # vista previa de pdf es porque se a instalado otro programa para abrir pdfs
+
+
+
+================================================
+========= HABILITAR ESCRITORIO REMOTO ==========
+================================================
+
+# habilitar escritorio remoto
+En windows 11 está en configuración > Sistema > Escritorio remoto > ON
+hay que habilitar requiere autenficación para más seguridad
+
+
+# crear usuario
+Usuarios de Escritorio remoto > GRAFOMETAL\ejemplodeusuario > Agregar > Aceptar
+
+
+
+================================================
+================ ERROR DE HUB ==================
+================================================
+
+# en este caso las pantallas han saltado de repente hay que seguir este patron 
+# solucionar el HUB 
+
+1 - con el ordenador encendido desconectar el cable del HUB al portatil
+2 - desconectar la corriente del HUB
+3 - apagar el portatil
+4 - encenderdo y esperar hasta que salga el simbolo de Windows para cerrar la tapa del portatil
+5 - conectar el hub al ordenador y sin encenderlo probar si funciona
+6 - si sigue sin funcionar levantar la tapa del portatil y probar el siguiente punto
+
+
+# si aún así no se conecta una de las pantallas hacemos lo siguiente
+
+5 - Botón derecho y pulsamos en algo tipo configuración de pantallas
+6 - Si está mal aparecerá un cuadrado con un 1 en grande y dos cuadrados pequeños con los números de las pantallas (en mi caso 2 y 3) 
+7 - Pulsar en el 2 y en las opciones de abajo (en los toggle) aparecerá algo descoenctado, lo que tengo que hacer es habilitarlo 
+8 - Después lo mismo, pero pulsando el cuadrado (monitor) 3
+
+# ya debería funcionar pero si sigue sin funcionar
+ 
+9 - Obligo a cambiar la resolución de pantalla para forzar un chispazo en la pantalla, habiendo pulsado antes la pantalla perteneciente.
+
+--------------------------------------------------
+
+10 - Una vez arreglado tenemos que ponerle la resolución de 1080
+11 - Si aparece en los monitores un error de "input no support" o algo parecido he creado otra guia
+
+# para solucionar el fallo de la resolución en las pantallas tengo el archivo "monitores · (input no support).txt"
+
+
+
+================================================
+============== ERROR DE PANTALLAS ==============
+================================================
+
+# este error suele pasar cuando se estropea el HUB
+# para solucionar el HUB tengo otro archivo "HUB (Manuel R.R.H.H).txt"
+
+1 - en inicio botón derecho y pulsamos en pantallas 
+2 - primero pulsamos en el cuadrado 1 que pertenece al primer monitor
+3 - Configuración de pantalla avanzada > Mostrar las propiedades del adaptador para la pantalla 2
+4 - Mostrar todos los modos > 1920x1080 a 70hz (creo que hay que seleccionar la de 1080) > aceptar > Aplicar
+5 - vuelvo hacer lo mismo con el monitor 2
+
+
+6 - Error borroso:
+en el caso de que se vea borroso tengo que modificar también el monitor del portatil, es decir, abro la pantalla del portatil y aparecerán 3 cuadrados, el 2 y el 3 corresponderán a los monitores y la 1 a la pantalla del portatil. Tenemos que configurar la pantalla 1 de la misma forma que la 2 y la 3 pero con la resolución de 1920x1080 a 70hz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
