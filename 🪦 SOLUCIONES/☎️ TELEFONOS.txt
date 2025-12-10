@@ -1,0 +1,25 @@
+=======================================================================================================
+[🔥 telefóno comunica al llamar pero sí puede recibir llamadas]::
+[🔥 los dos telefonos comunican (caso 2)]::
+
+# 🧑‍🎓 descarto fallos :
+# Lo primero voy a bajar a fábrica y cambio el cable de interfaz en el grandstream, de esta forma puedo saber si el problema es del telefóno o de las sesiones del grandstream
+# si sigue fallando el problema está en el telefóno [caso 1]
+# si no falla el problema está en las sesiones del grandstream [caso 2]
+
+# 🧑‍🎓 [caso 1] - reemplazar el telefonillo :
+	1 - el telefóno tiene en el lateral dos opciones (P - L), (pulso o línea). Tiene que estar siempre abajo (en línea)
+	2 - si aún así no funciona cambio el telefóno y pruebo
+
+# 🧑‍🎓 [caso 2] - reinicio el grandstream :
+# antes de reiniciar el grandStream soltando y enchufando el conector de tensión, tengo que reiniciar desde el software del grandtream
+# esto ocurre porque si lo reinicio soltando el cable se va a crear una nueva sesión y no va a remplazarse hasta que se caduque la anterior (por lo que permanecerá mal)
+# para reiniciar el grandstream sigo estos pasos:
+	# entro al servidor
+	1 - _show-aors | grep <EXTENSION_DE_UNA_DE_LAS_INTERFACES_DEL_GRANDSTREAM>
+	2 - http://<IP_GRANDSTREAM>
+	3 - usuario:password
+	# Me fijo en status en la tabla "Port Options" que esté en yes el CID (identificación de llamadas)
+	4 - Basic setting > reboot
+
+# en el caso de haber realizado ese cambio y sigue fallando incluso habiendo esperado un día, puede que el problema esté en el grandstream
