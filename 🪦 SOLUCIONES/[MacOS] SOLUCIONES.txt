@@ -1,20 +1,20 @@
-=======[índice]===========================================================================================
+=======[ índice ]=====================================================================================================
 
   00 - Forzar cerrar programa
   01 - Conexión con servidor
   02 - Dar acceso a una aplicación a todo el disco
   03 - Como unir macOS a un Directorio Activo  
   04 - Eliminar aplicación
-  05 - Fallo con Excel y Word
+  05 - Fallo con Microsoft (Outlook, Excel y Word)
 
 
 
-=======[🔴 Forzar cerrar programa]===========================================================================
+=======[ 🔴 00 - Forzar cerrar programa ]===========================================================================
 # la alternativa a control + alt + supr en Windows
 Comand + Option + Esc
 
 
-=======[🔴 Conexión con servidor]============================================================================
+=======[ 🔴 01 - Conexión con servidor ]============================================================================
 # Para conectarme a una unidad de red recordando credenciales después de reinicio:
 Finder > Ir > Conectarse a un servidro > <PROTOCOLO>://<IP_SERVIDOR> (smb://10.56.43.12)
   > [x] Usuario registrado 
@@ -28,7 +28,7 @@ Finder > Ir > Conectarse a un servidro > <PROTOCOLO>://<IP_SERVIDOR> (smb://10.5
 Finder > Ajustes > General > [x] Servidores Conectados
 
 
-=======[🔴 Dar acceso a una aplicación a todo el disco]======================================================
+=======[ 🔴 02 - Dar acceso a una aplicación a todo el disco ]======================================================
 # para darle acceso a todo el disco a una aplicación:
 Finder > Ajustes de sistema > Privacidad y seguridad > Acceso a todo el disco > ON 
 Password Admin: ************
@@ -38,7 +38,7 @@ Finder > Ajustes de sistema > Privacidad y seguridad > Archivos y carpetas > OFF
 Password Admin: ************
 
 
-=======[🔴 Como unir macOS a un Directorio Activo]===========================================================
+=======[ 🔴 03 - Como unir macOS a un Directorio Activo ]===========================================================
 # El primer requisito es tener la conexión WiFi desactivada
 
 Finder > Preferencias del sistema > Usuarios y grupos 
@@ -57,12 +57,12 @@ Mostrar opciones > Administración > Permitir administración a:
     Aceptar
 
 
-=======[🔴 Eliminar aplicación]==============================================================================
+=======[ 🔴 04 - Eliminar aplicación ]==============================================================================
 # eliminar aplicación
 finder - aplicaciones - (arrastro la aplicación que quiera eliminar a la papelera)
 
 
-=======[🔴 Fallo con Excel y Word ]==========================================================================
+=======[ 🔴 05 - Fallo con Microsoft (Outlook, Excel y Word) ]======================================================
 # esta es una lista de los fallos que pueda tener con Microsoft:
 # 1 - Excel (o Word) no pueden abrir el archivo ".xlsx" porque el formato o la extensi´ñon no son válidos. Comprueve que el archivo no se ha dañado y que la extensión y el formato del archgivo coinciden: 
       ## primero pruebo lo que me funcionó
@@ -78,7 +78,7 @@ finder - aplicaciones - (arrastro la aplicación que quiera eliminar a la papele
       # reinicio. (Si sigue sin funcionar lo dejo como estaba)
 
 
-=======[🔴 Firewall permitir siempre]==============================================================================
+=======[ 🔴 Firewall permitir siempre ]==============================================================================
 # Para ver las opciones del firewall
 Preferencias del Sistema → Seguridad y Privacidad → Firewall → Opciones de firewall
 
