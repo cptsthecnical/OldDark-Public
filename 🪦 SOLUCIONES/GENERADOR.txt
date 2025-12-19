@@ -1,7 +1,18 @@
-- 2 garrafas correponden al 70% del generador
+********************************************
+[ABRIR TAPA]:
+********************************************
+- Meto la llave que es una rara con los dos lados con relieves, giro la manilla la meto hacia dentro y me dejará abrirla
 
 ********************************************
-[GENERADOR DE ENERGÍA]:
+[MANUAL DE BOTONES]:
+********************************************
+- con los botones de las flechas no tiene ninguna actuación, es decir solo voy a ver las páginas de opciones que tiene el generador
+- botón rojo para apagarlo (mantener pulsado)
+- botón verde para encender
+- boton cimbolo circular para ...
+
+********************************************
+[TESTEO DE GENERADOR DE ENERGÍA]:
 ********************************************
 (Si el botón rojo parpadea)
 1 - Abrir: girar la llave, sacar la llave, sacar el anclaje hacia afuera y empujar
@@ -10,3 +21,13 @@
 4 - esperar hasta que arranque (a veces tiene que hacer varios intentos)
 5 - AUTOMÁTICO: pulsar botón de automático para que se apague (si no no se apaga).
 				de esta forma se encinede cuando lo necesite. 
+
+(Si no parpadea funciona correctamente)
+
+********************************************
+[RECARGAR GASOIL]:
+********************************************
+- Le doy a las flechas hasta llegar al apartado donde muestra el % del nivel interno de gasoil que tiene el generador
+- Abro con rosca donde se almacena el gasoil
+# 2 garrafas (de 20 litros cada una) correponden al 70% del espacio del generador
+- voy echando la garrafa dentro fijandome en el % de la pantalla, cuando me aproxime al 99% voy comprobando que no se sobre
