@@ -1,0 +1,9 @@
+=================================================================================================================================
+[Reconfigurar pistolas]::
+  # para reconfigurar las pistolas basta con escanear de la libreta el código de barras de:
+  "Configuration Settings" o "Settings Configuration"
+  
+  # La pistola cambiará de color azul dando paso a la configuración correcta, ahora ya debería poder escanear los códigos de barra
+
+=================================================================================================================================
+[]::
